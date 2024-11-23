@@ -40,12 +40,12 @@ const HomePage = () => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: '8',
                         borderRadius: '50%',
                     }}
-                    onClick={() => navigate('/cart')} // Redirige a la página del carrito
+                    onClick={() => navigate('/cart')}
+                    aria-label="Abrir carrito"
                 >
-                    <AiOutlineShoppingCart size={24} /> {/* Tamaño del ícono */}
+                    <AiOutlineShoppingCart size={24} /> 
                 </Button>
             </header>
 

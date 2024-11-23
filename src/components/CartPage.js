@@ -50,6 +50,8 @@ const CartPage = () => {
                 <button
                     onClick={handleBack}
                     style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '10px' }}
+                    aria-label="Volver"
+
                 >
                     <FaArrowLeft size={24} />
                 </button>
@@ -86,6 +88,7 @@ const CartPage = () => {
                                 <Card.Img
                                     variant="top"
                                     src={purchase.image}
+                                    alt={`Imagen del producto ${purchase.name}`}  
                                     style={{
                                         width: '80px',
                                         height: '80px',
@@ -108,7 +111,7 @@ const CartPage = () => {
                                             border: 'none',
                                             width: '100%',
                                         }}
-                                        onClick={handleOpenModal} // Abre el modal al hacer clic
+                                        onClick={handleOpenModal} 
                                     >
                                         Déjanos tu opinión 💜
                                     </Button>

@@ -13,15 +13,18 @@ const DetailsPage = () => {
 
     const [product, setProduct] = useState(null);
     const [similarProducts, setSimilarProducts] = useState([]);
+    const [selectedSize, setSelectedSize] = useState(null);
 
 
     const handleBack = () => {
         navigate(-1);
     };
     useEffect(() => {
-
         fetchProductDetails();
     }, []);
+    const handleButtonClick = (size) => {
+        setSelectedSize(size);
+    };
     const fetchProductDetails = async () => {
         try {
             const product = await getProductById(id)
@@ -89,13 +92,48 @@ const DetailsPage = () => {
                 <p style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px' }}>${product.price.toFixed(2)}</p>
                 <p style={{ color: '#555', marginBottom: '32px' }}>{product.description}</p>
 
-                <div style={{ marginBottom: '24px' }}>
-
+                <section style={{ margin: '20px', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
                     <h5>Selecciona una talla:</h5>
-                    <Button variant="outline-primary" style={{ margin: '8px' }}>CH</Button>
-                    <Button variant="outline-primary" style={{ margin: '8px' }}>M</Button>
-                    <Button variant="outline-primary" style={{ margin: '8px' }}>G</Button>
-                </div>
+                    <div style={{ display: 'flex'}}>
+                        <Button
+                            variant="outline-primary"
+                            style={{
+                                margin: '8px',
+                                backgroundColor: selectedSize === 'CH' ? '#0d6efd' : 'transparent', 
+                                color: selectedSize === 'CH' ? '#fff' : '#0d6efd', 
+                                borderColor: selectedSize === 'CH' ? '#0d6efd' : '#0d6efd',
+                            }}
+                            onClick={() => handleButtonClick('CH')}
+                        >
+                            CH
+                        </Button>
+                        <Button
+                            variant="outline-primary"
+                            style={{
+                                margin: '8px',
+                                backgroundColor: selectedSize === 'M' ? '#0d6efd' : 'transparent',
+                                color: selectedSize === 'M' ? '#fff' : '#0d6efd',
+                                borderColor: selectedSize === 'M' ? '#0d6efd' : '#0d6efd',
+                            }}
+                            onClick={() => handleButtonClick('M')}
+                        >
+                            M
+                        </Button>
+                        <Button
+                            variant="outline-primary"
+                            style={{
+                                margin: '8px',
+                                backgroundColor: selectedSize === 'G' ? '#0d6efd' : 'transparent',
+                                color: selectedSize === 'G' ? '#fff' : '#0d6efd',
+                                borderColor: selectedSize === 'G' ? '#0d6efd' : '#0d6efd',
+                            }}
+                            onClick={() => handleButtonClick('G')}
+                        >
+                            G
+                        </Button>
+                    </div>
+                </section>
+
                 <Button
                     variant="primary"
                     style={{
@@ -162,35 +200,79 @@ const DetailsPage = () => {
             </section>
 
             <section style={{ margin: '20px', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
-                <h4 style={{ margin: '16px' }}>Reseñas del producto</h4>
-                {[...Array(3)].map((_, index) => (
-                    <div key={index} style={{ marginBottom: '16px', border: '10px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <img
-                                src={`https://i.pravatar.cc/50?img=${index + 5}`}
-                                alt="Usuario"
-                                style={{
-                                    width: '50px',
-                                    height: '50px',
-                                    borderRadius: '50%',
-                                    objectFit: 'cover',
-                                    marginRight: '16px',
-                                }}
-                            />
-                            <div>
-                                <strong>Nombre Usuario</strong>
-                                <p style={{ margin: '0', fontSize: '15px', color: '#777' }}>Hace {index + 1} días</p>
-                            </div>
-                        </div>
-                        <p style={{ marginTop: '8px', color: '#555' }}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                        </p>
+                <div style={{ marginBottom: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <img
+                            src="https://i.pravatar.cc/50?img=5"
+                            alt="Usuario"
+                            style={{
+                                width: '50px',
+                                height: '50px',
+                                borderRadius: '50%',
+                                objectFit: 'cover',
+                                marginRight: '16px',
+                            }}
+                        />
                         <div>
-                            {'⭐'.repeat(5)}
+                            <strong>Nombre Usuario</strong>
+                            <p style={{ margin: '0', fontSize: '15px', color: '#333' }}>Hace 1 día</p> {/* Mejorar contraste */}
                         </div>
                     </div>
-                ))}
+                    <p style={{ marginTop: '8px', color: '#555' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                    <div>
+                        {'⭐'.repeat(5)}
+                    </div>
+                </div>
+
+                <div style={{ marginBottom: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <img
+                            src="https://i.pravatar.cc/50?img=6"
+                            alt="Usuario"
+                            style={{
+                                width: '50px',
+                                height: '50px',
+                                borderRadius: '50%',
+                                objectFit: 'cover',
+                                marginRight: '16px',
+                            }}
+                        />
+                        <div>
+                            <strong>Nombre Usuario</strong>
+                            <p style={{ margin: '0', fontSize: '15px', color: '#333' }}>Hace 2 días</p> {/* Mejorar contraste */}
+                        </div>
+                    </div>
+                    <p style={{ marginTop: '8px', color: '#555' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                    <div>
+                        {'⭐'.repeat(5)}
+                    </div>
+                </div>
+
+                <div style={{ marginBottom: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <img
+                            src="https://i.pravatar.cc/50?img=7"
+                            alt="Usuario"
+                            style={{
+                                width: '50px',
+                                height: '50px',
+                                borderRadius: '50%',
+                                objectFit: 'cover',
+                                marginRight: '16px',
+                            }}
+                        />
+                        <div>
+                            <strong>Nombre Usuario</strong>
+                            <p style={{ margin: '0', fontSize: '15px', color: '#333' }}>Hace 3 días</p> {/* Mejorar contraste */}
+                        </div>
+                    </div>
+                    <p style={{ marginTop: '8px', color: '#555' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                    <div>
+                        {'⭐'.repeat(5)}
+                    </div>
+                </div>
             </section>
+
 
             {/* Footer */}
             <footer

@@ -51,7 +51,6 @@ const CartPage = () => {
                     onClick={handleBack}
                     style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '10px' }}
                     aria-label="Volver"
-
                 >
                     <FaArrowLeft size={24} />
                 </button>
@@ -68,7 +67,6 @@ const CartPage = () => {
                 </Button>
             </section>
 
-            {/* Compras pasadas */}
             <section >
                 <h4>Tus compras pasadas</h4>
                 <Row >
@@ -124,19 +122,10 @@ const CartPage = () => {
 
             {showModal && <ReviewModal show={showModal} onClose={handleCloseModal} />}
 
-            {/* Footer */}
-            <footer
-                style={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    marginTop: '32px',
-                    paddingTop: '16px',
-                    borderTop: '1px solid #ddd',
-                }}
-            >
+            <footer style={{ display: 'flex', justifyContent: 'space-around', marginTop: '32px', paddingTop: '16px', borderTop: '1px solid' }}>
                 <p>Sobre Nosotros</p>
-                <p>Politica de Privacidad</p>
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <p>Política de Privacidad</p>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px' }}>
                     <FaFacebook style={{ color: '#1877F2', fontSize: '24px', cursor: 'pointer' }} />
                     <FaTwitter style={{ color: '#1DA1F2', fontSize: '24px', cursor: 'pointer' }} />
                     <FaInstagram style={{ color: '#E1306C', fontSize: '24px', cursor: 'pointer' }} />

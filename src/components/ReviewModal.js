@@ -17,7 +17,6 @@ const ReviewModal = ({ show, onClose }) => {
   });
   const [selectedStars, setSelectedStars] = useState(4);
   const [uploadedImage, setUploadedImage] = useState(null);
-  const [satisfactionRating, setSatisfactionRating] = useState(0);
   const [comments, setComments] = useState("");
 
   const toggleOption = (option) => {
@@ -40,15 +39,12 @@ const ReviewModal = ({ show, onClose }) => {
     }
   };
 
-  const handleEmojiClick = (rating) => {
-    setSatisfactionRating(rating);
-  };
+
 
   const handleSubmit = async () => {
     const formData = {
       selectedOptions,
       selectedStars,
-      satisfactionRating,
       comments,
     };
     console.log('Enviando');
@@ -63,7 +59,7 @@ const ReviewModal = ({ show, onClose }) => {
           text: 'Formulario enviado correctamente',
           confirmButtonText: 'Aceptar',
         }).then(() => {
-          onClose(false); // Cerrar modal después de confirmar
+          onClose(false);
         });
       }
     } catch (error) {
@@ -124,7 +120,6 @@ const ReviewModal = ({ show, onClose }) => {
             ))}
           </div>
 
-          {/* Campo de comentarios */}
           <Form.Group controlId="comments" className="mb-3">
             <Form.Label>Comentarios</Form.Label>
             <Form.Control
@@ -136,7 +131,6 @@ const ReviewModal = ({ show, onClose }) => {
             />
           </Form.Group>
 
-          {/* Carga de imágenes */}
           <Form.Group controlId="imageUpload" className="mb-3">
             <Form.Label>Carga de imágenes</Form.Label>
             <div className="d-flex align-items-center">
@@ -198,21 +192,42 @@ const ReviewModal = ({ show, onClose }) => {
             </div>
           </Form.Group>
 
-          {/* Calificación general */}
           <div className="mb-3">
             <Form.Label>Calificación General</Form.Label>
             <div className="d-flex">
-              {[...Array(5)].map((_, index) => (
-                <FaStar
-                  key={index}
-                  size="24"
-                  color={index < selectedStars ? "#FFD700" : "#CCC"}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleStarClick(index)}
-                />
-              ))}
+              <FaStar
+                size="24"
+                color={selectedStars >= 1 ? "#FFD700" : "#CCC"}
+                style={{ cursor: "pointer" }}
+                onClick={() => handleStarClick(0)}
+              />
+              <FaStar
+                size="24"
+                color={selectedStars >= 2 ? "#FFD700" : "#CCC"}
+                style={{ cursor: "pointer" }}
+                onClick={() => handleStarClick(1)}
+              />
+              <FaStar
+                size="24"
+                color={selectedStars >= 3 ? "#FFD700" : "#CCC"}
+                style={{ cursor: "pointer" }}
+                onClick={() => handleStarClick(2)}
+              />
+              <FaStar
+                size="24"
+                color={selectedStars >= 4 ? "#FFD700" : "#CCC"}
+                style={{ cursor: "pointer" }}
+                onClick={() => handleStarClick(3)}
+              />
+              <FaStar
+                size="24"
+                color={selectedStars >= 5 ? "#FFD700" : "#CCC"}
+                style={{ cursor: "pointer" }}
+                onClick={() => handleStarClick(4)}
+              />
             </div>
           </div>
+
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleSubmit}>

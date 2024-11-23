@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logoGif from '../assets/logo.gif';
-import { useNavigate } from 'react-router-dom';  // Importar useNavigate para la navegación
+import { useNavigate } from 'react-router-dom';
 import { getProducts } from '../service';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
@@ -107,7 +107,7 @@ const HomePage = () => {
                 </Row>
             </section>
 
-            <footer style={{ display: 'flex', justifyContent: 'space-around', marginTop: '32px', paddingTop: '16px', borderTop: '1px solid #ddd' }}>
+            <footer style={{ display: 'flex', justifyContent: 'space-around', marginTop: '32px', paddingTop: '16px', borderTop: '1px solid' }}>
                 <p>Sobre Nosotros</p>
                 <p>Política de Privacidad</p>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px' }}>

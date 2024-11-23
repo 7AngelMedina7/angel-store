@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getProductById, getSameCategory } from '../service';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa'; // Importar el ícono de 'back' (flecha izquierda)
 import { AiOutlineShoppingCart } from 'react-icons/ai'; // Importa el ícono de carrito desde React-Icons
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
@@ -48,24 +48,26 @@ const DetailsPage = () => {
                     <button
                         onClick={handleBack}
                         style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '10px' }}
+                        aria-label="Volver"
                     >
                         <FaArrowLeft size={24} />
                     </button>
-                    Detalles
                 </div>
+
                 <Button
                     variant="outline-primary"
                     style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: '8px',
                         borderRadius: '50%',
                     }}
-                    onClick={() => navigate('/cart')} // Redirige a la página del carrito
+                    onClick={() => navigate('/cart')}
+                    aria-label="Abrir carrito"
                 >
-                    <AiOutlineShoppingCart size={24} /> {/* Tamaño del ícono */}
+                    <AiOutlineShoppingCart size={24} />
                 </Button>
+
             </header>
             {/* Detalles del producto */}
             <section style={{ margin: '20px', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
@@ -116,9 +118,11 @@ const DetailsPage = () => {
                             <div style={{ padding: '16px', textAlign: 'center' }}>
                                 <img
                                     src={product.image}
-                                    alt={product.title}
+                                    alt={`Imagen de ${product.title}`}
+                                    aria-label={`Imagen de ${product.title}`}
                                     style={{ width: '50%', maxWidth: '90px', objectFit: 'cover', marginBottom: '16px' }}
                                 />
+
                                 <h3 style={{ fontSize: '1.32px' }}>{product.title?.length > 20 ? product.title.slice(0, 20) + '...' : product.title}</h3>
                                 <p style={{ color: '#555' }}>
                                     {product.category.charAt(0).toUpperCase() + product.category.slice(1).toLowerCase()}

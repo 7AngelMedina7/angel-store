@@ -38,8 +38,7 @@ const CartPage = () => {
                 height: '100vh',
                 display: 'flex',
                 flexDirection: 'column',
-            }}
-        >
+            }}>
             <header
                 style={{
                     display: 'flex',
@@ -120,7 +119,7 @@ const CartPage = () => {
                 </Row>
             </section>
 
-            {showModal && <ReviewModal onClose={handleCloseModal} />}
+            {showModal && <ReviewModal show={showModal} onClose={handleCloseModal} />}
 
             {/* Footer */}
             <footer

@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Badge } from "react-bootstrap";
 import { FaStar, FaPlus } from "react-icons/fa";
+import Swal from 'sweetalert2';
+import { postReview } from "../service";
 
-const ReviewModal = () => {
-  const [show, setShow] = useState(true);
+import withReactContent from 'sweetalert2-react-content';
+
+const ReviewModal = ({ show, onClose }) => {
+  const MySwal = withReactContent(Swal);
   const [selectedOptions, setSelectedOptions] = useState({
     servicio: true,
     calidad: true,
@@ -13,9 +17,8 @@ const ReviewModal = () => {
   });
   const [selectedStars, setSelectedStars] = useState(4);
   const [uploadedImage, setUploadedImage] = useState(null);
-
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+  const [satisfactionRating, setSatisfactionRating] = useState(0);
+  const [comments, setComments] = useState("");
 
   const toggleOption = (option) => {
     setSelectedOptions((prevState) => ({
@@ -37,66 +40,100 @@ const ReviewModal = () => {
     }
   };
 
-  return (
-    <>
-      
+  const handleEmojiClick = (rating) => {
+    setSatisfactionRating(rating);
+  };
 
-      <Modal show={show} onHide={handleClose} centered>
+  const handleSubmit = async () => {
+    const formData = {
+      selectedOptions,
+      selectedStars,
+      satisfactionRating,
+      comments,
+    };
+    console.log('Enviando');
+    console.log(formData);
+
+    try {
+      const response = await postReview(formData);
+      if (response.status === 200) {
+        MySwal.fire({
+          icon: 'success',
+          title: '¡Éxito!',
+          text: 'Formulario enviado correctamente',
+          confirmButtonText: 'Aceptar',
+        }).then(() => {
+          onClose(false); // Cerrar modal después de confirmar
+        });
+      }
+    } catch (error) {
+      MySwal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un error al enviar el formulario',
+        confirmButtonText: 'Aceptar',
+      });
+    }
+  };
+
+  return (
+    <div>
+      <Modal show={show} onHide={onClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Reseña</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Caras */}
           <div className="d-flex justify-content-center mb-3">
-            <span role="img" style={{ fontSize: "32px", margin: "0 10px" }}>
+            <span
+              role="img"
+              aria-label="Cara preocupada"
+              title="Cara preocupada"
+              style={{ fontSize: "32px", margin: "0 10px" }}
+            >
               😟
             </span>
-            <span role="img" style={{ fontSize: "32px", margin: "0 10px" }}>
+            <span
+              role="img"
+              aria-label="Cara neutral"
+              title="Cara neutral"
+              style={{ fontSize: "32px", margin: "0 10px" }}
+            >
               😐
             </span>
-            <span role="img" style={{ fontSize: "32px", margin: "0 10px" }}>
+            <span
+              role="img"
+              aria-label="Cara sonriente"
+              title="Cara sonriente"
+              style={{ fontSize: "32px", margin: "0 10px" }}
+            >
               😊
             </span>
           </div>
 
-          {/* Botones de selección */}
+
           <div className="d-flex justify-content-around mb-3">
-            <Button
-              variant={selectedOptions.servicio ? "primary" : "outline-secondary"}
-              onClick={() => toggleOption("servicio")}
-            >
-              Servicio {selectedOptions.servicio && "✓"}
-            </Button>
-            <Button
-              variant={selectedOptions.calidad ? "primary" : "outline-secondary"}
-              onClick={() => toggleOption("calidad")}
-            >
-              Calidad {selectedOptions.calidad && "✓"}
-            </Button>
-            <Button
-              variant={selectedOptions.pagina ? "primary" : "outline-secondary"}
-              onClick={() => toggleOption("pagina")}
-            >
-              Página {selectedOptions.pagina && "✓"}
-            </Button>
-            <Button
-              variant={selectedOptions.envio ? "primary" : "outline-secondary"}
-              onClick={() => toggleOption("envio")}
-            >
-              Envío {selectedOptions.envio && "✓"}
-            </Button>
-            <Button
-              variant={selectedOptions.precio ? "primary" : "outline-secondary"}
-              onClick={() => toggleOption("precio")}
-            >
-              Precio {selectedOptions.precio && "✓"}
-            </Button>
+            {Object.keys(selectedOptions).map((option) => (
+              <Button
+                key={option}
+                variant={selectedOptions[option] ? "primary" : "outline-secondary"}
+                onClick={() => toggleOption(option)}
+              >
+                {option.charAt(0).toUpperCase() + option.slice(1)}{" "}
+                {selectedOptions[option] && "✓"}
+              </Button>
+            ))}
           </div>
 
           {/* Campo de comentarios */}
           <Form.Group controlId="comments" className="mb-3">
             <Form.Label>Comentarios</Form.Label>
-            <Form.Control as="textarea" rows={3} placeholder="Escribe tus comentarios" />
+            <Form.Control
+              as="textarea"
+              rows={3}
+              placeholder="Escribe tus comentarios"
+              value={comments}
+              onChange={(e) => setComments(e.target.value)}
+            />
           </Form.Group>
 
           {/* Carga de imágenes */}
@@ -137,7 +174,7 @@ const ReviewModal = () => {
                 />
               ) : (
                 <img
-                  src= "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+                  src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
                   alt="Placeholder"
                   style={{
                     width: "80px",
@@ -178,12 +215,12 @@ const ReviewModal = () => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSubmit}>
             Enviar
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 };
 

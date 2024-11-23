@@ -48,3 +48,19 @@ export const getSameCategory = async (category) => {
     throw error;
   }
 };
+export const postReview = async (data) => {
+  console.log("Entrando a postReview");
+  try {
+    const response = await axios.get(`https://dummyjson.com/c/c234-6163-419d-89c7`,data, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    console.log("Datos postReview", response);
+
+    return response;
+  } catch (error) {
+    console.error('Error fetching postReview:', error);
+    throw error;
+  }
+};

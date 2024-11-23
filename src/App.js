@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import DetailsPage from './components/DetailsPage';
 import CartPage from './components/CartPage';
@@ -10,9 +10,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="angel-store" element={<HomePage />} />
-        <Route path="/details/:id" element={<DetailsPage />} /> 
-        <Route path="/cart" element={<CartPage />} /> 
-
+        <Route path="/details/:id" element={<DetailsPage />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </Router>
   );

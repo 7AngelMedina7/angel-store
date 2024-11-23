@@ -1,8 +1,8 @@
 {
+  "homepage": "http://7AngelMedina7.github.io/angel-store",
   "name": "angel-store",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://7angelmedina7.github.io/angel-store",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
